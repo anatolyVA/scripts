@@ -19,7 +19,7 @@ local script_vers_text = '1.00'
 local update_url = "https://raw.githubusercontent.com/NikZakonov410/scripts/master/update.ini"
 local update_path = getWorkingDirectory() .. '/update.ini'
 
-local script_url = ""
+local script_url = "https://raw.githubusercontent.com/NikZakonov410/scripts/master/MH.lua"
 local script_path = thisScript().path
 
 if not doesFileExist("moonloader/config/mhelper.ini") then--cfg
