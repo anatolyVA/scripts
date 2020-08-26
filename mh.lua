@@ -1240,7 +1240,7 @@ function main() -- маин
 
     imgui.SwitchContext()
     style_gray()
-    autoupdate("тут ссылка на ваш json", '['..string.upper(thisScript().name)..']: ', "тут ссылка на ваш сайт/url вашего скрипта на форуме (если нет, оставьте как в json)")
+    autoupdate("https://raw.githubusercontent.com/NikZakonov410/scripts/master/version.json", '['..string.upper(thisScript().name)..']: ', "https://raw.githubusercontent.com/NikZakonov410/scripts/master/version.json")
     while true do
         wait(0)
         if testCheat('MM') then
@@ -1521,7 +1521,7 @@ function onWindowMessage(msg, wparam, lparam)
 end
 function autoupdate(json_url, prefix, url)
   local dlstatus = require('moonloader').download_status
-  local json = getWorkingDirectory() .. '\\'..thisScript().name..'-version.json'
+  local json = getWorkingDirectory() .. '\\'..thisScript().name..'version.json'
   if doesFileExist(json) then os.remove(json) end
   downloadUrlToFile(json_url, json,
     function(id, status, p1, p2)
@@ -1538,7 +1538,7 @@ function autoupdate(json_url, prefix, url)
               lua_thread.create(function(prefix)
                 local dlstatus = require('moonloader').download_status
                 local color = -1
-                sampAddChatMessage((prefix..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), color)
+                sampAddChatMessage((tag..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), -1)
                 wait(250)
                 downloadUrlToFile(updatelink, thisScript().path,
                   function(id3, status1, p13, p23)
@@ -1552,7 +1552,7 @@ function autoupdate(json_url, prefix, url)
                     end
                     if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
                       if goupdatestatus == nil then
-                        sampAddChatMessage((prefix..'Обновление прошло неудачно. Запускаю устаревшую версию..'), color)
+                        sampAddChatMessage((tag..'Обновление прошло неудачно. Запускаю устаревшую версию..'), color)
                         update = false
                       end
                     end
