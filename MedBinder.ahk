@@ -4,18 +4,14 @@ IfnotExist, %A_ScriptDir%\MB ;Если такой капки нет, то...
 {
  FileCreateDir, %A_ScriptDir%\MB ;Он создает эту папку
 }
-IfnotExist, %A_ScriptDir%\MB\Dopfile.ahk ;Если такого файла нет, то...
-{
-URLDownloadToFile, , %A_ScriptDir%\MB\Dopfile.ahk ;Он этот файл скачивает
-}
 
-Filedelete, %A_ScriptDir%\MB\Obnova.exe ;Команда для удаления вашего скрипта для скачивания новой версии
-IfnotExist, %A_ScriptDir%\MB\Obnova.exe ;Если такого файла нет, то...
+Filedelete, %A_ScriptDir%\MB\MedBinder.exe ;Команда для удаления вашего скрипта для скачивания новой версии
+IfnotExist, %A_ScriptDir%\MB\MedBinder.exe ;Если такого файла нет, то...
 {
-URLDownloadToFile, ,%A_ScriptDir%\MedBinder.exe ;Он скачивает ваш скрипт по ссылке
+URLDownloadToFile, https://raw.githubusercontent.com/NikZakonov410/scripts/master/MedBinder.ahk,%A_ScriptDir%\MedBinder.ahk ;Он скачивает ваш скрипт по ссылке
 TrayTip,Проверка обновлений,Подождите 2 секунд ;Подсказка в трее
 sleep 2000 ;Задержка между командами 5 секунд
-Run,%A_ScriptDir%\MedBinder.exe ;Запуск вашего скрипта
+Run,%A_ScriptDir%\MedBinder.ahk ;Запуск вашего скрипта
 
 
 IniRead, name, med.ini, main, n
