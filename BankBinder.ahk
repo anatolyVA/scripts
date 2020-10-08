@@ -1,5 +1,5 @@
 buildscr = 2 ;версия для сравнения, если меньше чем в ver.ini - обновляем
-downlurl := "https://github.com/NikZakonov410/scripts/blob/master/upb.exe?raw=true"
+downlurl := "https://raw.githubusercontent.com/NikZakonov410/scripts/master/upb.ahk"
 downllen := "https://raw.githubusercontent.com/NikZakonov410/scripts/master/bankver.ini"
 
 Utf8ToAnsi(ByRef Utf8String, CodePage = 1251)
