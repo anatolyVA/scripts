@@ -83,9 +83,9 @@ IfnotExist, %A_ScriptDir%\Bb\bank.ini ;Если такого файла нет, то...
 {
 URLDownloadToFile, https://raw.githubusercontent.com/NikZakonov410/scripts/master/bank.ini, %A_ScriptDir%\Bb\bank.ini ;Он этот файл скачивает
 }
-IfnotExist, %A_ScriptDir%\help.txt ;Если такого файла нет, то...
+IfnotExist, %A_ScriptDir%\bhelp.txt ;Если такого файла нет, то...
 {
-URLDownloadToFile, https://raw.githubusercontent.com/NikZakonov410/scripts/master/help.txt, %A_ScriptDir%\help.txt ;Он этот файл скачивает
+URLDownloadToFile, https://raw.githubusercontent.com/NikZakonov410/scripts/master/bhelp.txt, %A_ScriptDir%\bhelp.txt ;Он этот файл скачивает
 }
 
 
@@ -95,75 +95,26 @@ IniRead, delay, Bb\bank.ini, main, d
 IniRead, r, Bb\bank.ini, main, r
 IniRead, forg, Bb\bank.ini, main, forg
 IniRead, rankname, Bb\bank.ini, main, rankname
-if forg = СМП
-{
  if r = 1
- rankname = Интерн 
+ rankname = Охранник 
  if r = 2
- rankname = Участковый врач
+ rankname = Сотрудник Банка
  if r = 3
- rankname = Терапевт
+ rankname = Ст.Охранник
  if r = 4
- rankname = Нарколог
+ rankname = Ст.Сотрудник Банка
  if r = 5
- rankname = Окулист
+ rankname = Нач. Охраны
  if r = 6
- rankname = Хирург
+ rankname = Нач. Отдела Сбережений
  if r = 7
- rankname = Психолог
+ rankname = Зав. Отдела Сбережений
  if r = 8
- rankname = Зав. Отделением
+ rankname = Менеджер
  if r = 9
- rankname = Зам.Глав.Врача
+ rankname = Зам.Директора
  if r = 10
- rankname = Глав.Врач
-}
-if forg = ГВМУ
-{
- if r = 1
- rankname = Интерн 
- if r = 2
- rankname = Участковый врач
- if r = 3
- rankname = Терапевт
- if r = 4
- rankname = Нарколог
- if r = 5
- rankname = Окулист
- if r = 6
- rankname = Хирург
- if r = 7
- rankname = Психолог
- if r = 8
- rankname = Зав. Отделением
- if r = 9
- rankname = Зам.Глав.Врача
- if r = 10
- rankname = Глав.Врач
-}
-if forg = ГБ-Э
-{
- if r = 1
- rankname = Интерн 
- if r = 2
- rankname = Участковый врач
- if r = 3
- rankname = Терапевт
- if r = 4
- rankname = Нарколог
- if r = 5
- rankname = Окулист
- if r = 6
- rankname = Хирург
- if r = 7
- rankname = Психолог
- if r = 8
- rankname = Зав. Отделением
- if r = 9
- rankname = Зам.Глав.Врача
- if r = 10
- rankname = Глав.Врач
-}
+ rankname = Директор
 SendMessage, 0x50,, 0x4190419,, A
 Gui, Font, S15 CDefault Bold, Trebuchet MS
 Gui, Add, Text, x65 y9 w110 h30 ,  Настройки
@@ -171,7 +122,6 @@ Gui, Font, S10 CDefault Bold, Trebuchet MS
 Gui, Add, Button, x25 y169 w180 h30 gKeyR, Ввести ранг(1-10)
 Gui, Add, Button, x25 y129 w180 h30 gKeyS, Ввести задержку
 Gui, Add, Button, x25 y89 w180 h30 gKeyN, Ввести Ник-Нейм
-Gui, Add, Button, x25 y49 w180 h30 gKeyO, Ввести название орг.
 Gui, Add, Button, x2 y229 w60 h30 gKeyOK, OK
 Gui, Add, Button, x167 y229 w60 h30 gKeyI, INFO
 ; Generated using SmartGUI Creator 4.0
@@ -194,15 +144,11 @@ keyS:
 InputBox, S, Задержка, Введите задержку(Пример: 1000) 1000 = 1 секунда.`nВаша задержка - %delay%
 IniWrite, %S%, Bb\bank.ini, main, d
 return
-keyO:
-InputBox, Org, Организация, Введите название своей организации(СМП | ГВМУ | ГБ-Э).`nВаша нынешняя организация - %forg% 
-IniWrite, %Org%, Bb\bank.ini, main, forg
-return
 keyOK:
 gui,Minimize
 return
 keyI:
-MsgBox, 64, INFO, Скрипт создан для МЗ структур Центрального Округа. Создатель - Ник Законов`n(@sukhankov - VK)`nВсю информацию по командам, вы можете посмотреть в текстовом документе, который скачается после запуска скрипта.                                
+MsgBox, 64, INFO, Скрипт создан для Сбербанка Центрального Округа. Создатель - Ник Законов`n(@sukhankov - VK)`nВсю информацию по командам, вы можете посмотреть в текстовом документе, который скачается после запуска скрипта.                                
 return
 
 
@@ -210,201 +156,134 @@ return
   SendMessage, 0x50,, 0x4190419,, A
   IniRead, r, Bb\bank.ini, main, r
   SendInput, {F6}{Enter}
-  SendInput, {F6}Здравствуйте, меня зовут %name%, я %rankname% %forg% {Enter}
+  SendInput, {F6}Здравствуйте, меня зовут %name%, я %rankname% СберБанка {Enter}
   sleep %delay%
   SendInput, {F6}Чем я могу вам помочь? {Enter}
   return
-  :?:/h:: 
+  :?:/dep:: 
   IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
-  if r > 1
+  if r > 4
   {
-  Sendinput, {F6}Хорошо, сейчас я выдам вам лекарство, в течение 10 минут вам должно быть легче.{Enter}
+  Sendinput, {F6}Хорошо, сейчас я помогу Вам с депозитом{Enter}
    Sleep %delay%
-  Sendinput, {F6}/do Докторский ридикюль в руках.{Enter}
+  Sendinput, {F6}/do На столе стоит компьютер.{Enter}
    Sleep %delay%
-  Sendinput, {F6}/me резким движением правой руки, открыл(а) ридикюль.{Enter}
+  Sendinput, {F6}/me распечатав бланк для заполнения, передал его гражданину.{Enter}
    Sleep %delay%
-  Sendinput, {F6}/do Докторский ридикюль открыт.{Enter}
+  Sendinput, {F6}/do Бланк находится у гражданина.{Enter}
    Sleep %delay%
-  Sendinput, {F6}/me протянул(а) руку, после чего взял(а) лекарство "Анальгин"{Enter}
+  Sendinput, {F6}/todo Хорошо, заполните его*указывая на нужны строчки{Enter}
    Sleep %delay%
-  Sendinput, {F6}Держите лекарство, благодаря ему вам должно полегчать.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/heal {Space}
-   Sleep %delay%
-
+  Sendinput, {F6}/bankmenu{space}
   }
-  if r < 2
+  if r < 5
    {
-   SendInput, {F6}Извините, но я не могу Вас вылечить, сейчас позову старших {Enter}
+   SendInput, {F6}Извините, но я не могу помочь Вам с депозитом, сейчас позову старших. {Enter}
    sleep %delay%
-   SendInput, {F6}/r Нужно вылечить гражданина, прошу подойти старших в палату {enter}
+   SendInput, {F6}/r Прошу подойти старших к стойке и помочь гражданину с депозитом. {enter}
    }
   return
   
-  :?:/utatu:: 
+  :?:/card:: 
+  IniRead, r, Bb\bank.ini, main, r
+  SendMessage, 0x50,, 0x4190419,, A
+  SendInput, {F6}{Enter}
+  if r > 4
+  {
+   Sleep %delay%
+  Sendinput, {F6}Хорошо, сейчас я оформлю Вам бановскую карту.{Enter}
+   Sleep %delay%
+  Sendinput, {F6}Т.к у нас уже есть ваши данные, мы быстро оформим Вам карту{Enter}
+   Sleep %delay%
+  Sendinput, {F6}/do В компьютере находятся данные гражданина.{Enter}
+   Sleep %delay%
+  Sendinput, {F6}/me зайдя в раздел "Карты", активировал нужную.{Enter}
+   Sleep %delay%
+  Sendinput, {F6}/do Карта активирована.{Enter}
+   Sleep %delay%
+  Sendinput, {F6}/me достав из под стола карту, передал её гражданину{Enter}
+   Sleep %delay%
+  Sendinput, {F6}/todo Вот ваша карта{!}*передавая карту{Enter}
+  Sleep %delay%
+  Sendinput, {F6}/bankmenu{Space}
+  }
+  if r < 5
+   {
+   SendInput, {F6}Для получения карты, зайдите в кабинет справа от кассы. {Enter}
+   }
+  return
+  :?:/credit1:: 
   IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
   if r > 5
   {
+  Sendinput, {F6}Хорошо, давайте оформим Вам кредит.{Enter}
    Sleep %delay%
-  Sendinput, {F6}Отлично, оголяйте место татуировки.{Enter}
+  Sendinput, {F6}Для получения кредита, Вам нужна передать мне паспорт{Enter}
    Sleep %delay%
-  Sendinput, {F6}/b /showtatu{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me запустил(а) лазерный аппарат MV-110{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Аппарат запущен.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me одел(а) перчатки, после чего взял(а) аппарат в руку{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Перчатки одеты, аппарат в руке.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me плавным движением, начал(а) водить аппаратом по рисунку{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Рисунок потерял свой изначальный цвет.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Мазь "Пантенол" стоит в закрытом виде на столе.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me резким движением взял(а) мазь, после чего открыл(а) ее{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Мазь в открытом виде находится в руке.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me аккуратным движением нанес(ла) мазь, после чего покрыл(а) пленкой{Enter}
-   Sleep %delay%
-  Sendinput, {F6}Все, не снимайте пленку до следующего сеанса.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/unstuff 7000{Space}
-   Sleep %delay%
-
+  Sendinput, {F6}Так-же напомню, максимальная сумма кредита 100.000руб.{Enter}
   }
   if r < 6
    {
-   SendInput, {F6}Извините, но я не могу снять вам тату, сейчас позову старших {Enter}
+   SendInput, {F6}Извините, но я не могу выдать Вам кредит, сейчас позову старших {Enter}
    sleep %delay%
-   SendInput, {F6}/r Нужно снять тату гражданина, прошу подойти старших в кабинет хирурга {enter}
+   SendInput, {F6}/r Нужно выдать кредит гражданину, прошу подойти старших к стойке.{enter}
    }
   return
-  :?:/medc:: 
-  IniRead, r, Bb\bank.ini, main, r
-  SendMessage, 0x50,, 0x4190419,, A
-  SendInput, {F6}{Enter}
-  if r > 2
-  {
-  Sendinput, {F6}Здравствуйте, вы пришли за мед.картой?{Enter}
-   Sleep %delay%
-  Sendinput, {F6}Хорошо, на заполнение мед.карты уйдет немного времени.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Бумага "Артикул МП-200" лежит на столе.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me протянул(а) руку за листом бумаги{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Лист бумаги в руке.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me вставил(а) лист бумаги в принтер{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Лист бумаги в принтере.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me начал(а) заполнять форму мед.карты через портативный компьютер{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Форма мед.карты готова к распечатке.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me нажал(а) кнопку "печать" после чего распечал(а) мед.карту{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Мед.карта распечатана.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}Ваша мед.карта готова к использованию.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/b Чтобы вам выдали мед.карту, вам нужно ее оплатить.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/b /pay id 3000.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/medcard{Space}
-   Sleep %delay%
-
-  }
-  if r < 3
-   {
-   SendInput, {F6}Извините, но я не могу выдать Вам мед.карту, сейчас позову старших {Enter}
-   sleep %delay%
-   SendInput, {F6}/r Нужно выдать мед.карту гражданину, прошу подойти старших в палату {enter}
-   }
-  return
-  :?:/apt:: 
+    :?:/credit2:: 
   IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
   if r > 5
   {
-  Sendinput, {F6}Здравствуйте, вы пришли за аптечкой?{Enter}
+  Sendinput, {F6}/me взял паспорт у гражданина.{Enter}
    Sleep %delay%
-  Sendinput, {F6}Хорошо, сейчас я выдам вам комплект аптечек.{Enter}
+  Sendinput, {F6}/do Паспорт на столе.{Enter}
    Sleep %delay%
-  Sendinput, {F6}/do Комплектация аптечек лежит в сейфе, под столом.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me ввел(а) пароль от сейфа, после чего достал(а) нужное кол-во комплектации{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Комплектация аптечек лежит на столе.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}Держите ваш комплект аптечек, перед тем как его забрать, вам нужно поставить вот тут подпись.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me показал(а) пальцем на место для росписи{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/sellmed{Space}
-   Sleep %delay%
-
+  Sendinput, {F6}/me ввел нужны данные в компьютер.{Enter}
+     Sleep %delay%
+  Sendinput, {F6}/do Данные в компьютере{Enter}
+     Sleep %delay%
+  Sendinput, {F6}/me распечатав бланк, передал его гражданину напротив{Enter}
+       Sleep %delay%
+  Sendinput, {F6}/todo Распишитесь вот тут и кредит Ваш*указывая на строчки{Enter}
+       Sleep %delay%
+  Sendinput, {F6}/bankmenu{space}
   }
   if r < 6
    {
-   SendInput, {F6}Извините, но я не могу выдать Вам аптечку, сейчас позову старших {Enter}
-   sleep %delay%
-   SendInput, {F6}/r Нужно выдать аптечку гражданину, прошу подойти старших в палату {enter}
+   SendInput, {F6}{enter}
    }
   return
-  :?:/rec:: 
+  :?:/pcard:: 
   IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
-  if r > 3
+  if r > 4
   {
-  Sendinput, {F6}Хорошо, на заполнение рецепта уйдет немного времени.{Enter}
+  Sendinput, {F6}Хорошо, сейчас я помогу Вам восстановить пин-код{Enter}
    Sleep %delay%
-  Sendinput, {F6}/do Бумага "А4" лежит на столе.{Enter}
+  Sendinput, {F6}/do Компьютер находится на столе.{Enter}
    Sleep %delay%
-  Sendinput, {F6}/me протянул(а) руку за листом бумаги{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Лист бумаги в руке.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me вставил(а) лист бумаги в принтер{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Лист бумаги в принтере.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me начал(а) заполнении анатации через портативный компьютер{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Анатация готова к распечатке.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/me нажал(а) кнопку "печать" после чего распечал(а) анатацию{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/do Анатация распечатана.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}Ваша анатация готова к использованию.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}Чтобы вам выдали анатацию, вам нужно ее оплатить.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/b /pay id 1500.{Enter}
-   Sleep %delay%
-  Sendinput, {F6}/recept{Space}
-   Sleep %delay%
-
+  Sendinput, {F6}/me ввел нужны данные в компьютер.{Enter}
+     Sleep %delay%
+  Sendinput, {F6}/do Данные в компьютере{Enter}
+     Sleep %delay%
+  Sendinput, {F6}/me зашёл в личные кабинет гражданина, и через root права запустил процесс восстановления{Enter}
+       Sleep %delay%
+  Sendinput, {F6}Введите пароль в эту онлайн-кассу{Enter}
+       Sleep %delay%
+  Sendinput, {F6}/bankmenu{space}
   }
-  if r < 4
+  if r < 5
    {
-   SendInput, {F6}Извините, но я не могу выдать Вам рецепт, сейчас позову старших {Enter}
-   sleep %delay%
-   SendInput, {F6}/r Нужно выдать рецепт гражданину, прошу подойти старших в палату {enter}
+     Sendinput, {F6}Я не могу сменить Вам пин-код, сейчас позову старших{Enter}
+   Sleep %delay%
+  Sendinput, {F6}/r Прошу старших подойти к стойке и помочь сменить пин-код гражданину.{Enter}
+   Sleep %delay%
    }
   return
    :?:/sob:: 
@@ -427,6 +306,39 @@ return
      sleep %delay%
    SendInput, {F6}/r Гражданин пришёл на собеседование, прошу подойти старших к стойке {enter}
    }
+   
+   return
+   :?:/sobq:: 
+   IniRead, r, Bb\bank.ini, main, r
+   SendMessage, 0x50,, 0x4190419,, A
+   SendInput, {F6}{Enter}
+   SendInput, {F6}Хорошо, теперь я задам Вам пару вопросов {Enter}
+     sleep %delay%
+   SendInput, {F6}Работали ли вы прежде в Сбербанке?{Enter}
+     sleep %delay%
+   SendInput, {F6}Проходили ли вы обучени в эконом. ВУЗе?{Enter}
+     sleep %delay%
+   SendInput, {F6}Готовы ли вы соблюдать устав Сбербанка и выполнять все требования начальства?{Enter}
+   return
+    :?:/sobtest:: 
+   IniRead, r, Bb\bank.ini, main, r
+   SendMessage, 0x50,, 0x4190419,, A
+   SendInput, {F6}{Enter}
+   SendInput, {F6}Хорошо, представим такую ситуацию..{Enter}
+     sleep %delay%
+   SendInput, {F6}Вы - сотрудник банка, к Вам приходит клиент и просит выдать ему кредит{Enter}
+     sleep %delay%
+   SendInput, {F6}Как вы заполните бланк?{Enter}
+     sleep %delay%
+   SendInput, {F6}/me передал бланк{Enter}
+   return
+       :?:/sobtest2:: 
+   IniRead, r, Bb\bank.ini, main, r
+   SendMessage, 0x50,, 0x4190419,, A
+   SendInput, {F6}{Enter}
+   SendInput, {F6}Отлично, допустим к Вам приезжает работник налоговой и просит выдать ему деньги{Enter}
+     sleep %delay%
+   SendInput, {F6}Как Вы поступите?{Enter}
    return
    :?:/tpass:: 
    SendMessage, 0x50,, 0x4190419,, A
@@ -486,6 +398,10 @@ return
    SendInput, {F6}/do Бейджик готов {Enter}
      sleep %delay%
    SendInput, {F6}/me передал бейджик новому работнику {Enter}
+     sleep %delay%
+      SendInput, {F6}Вы - охранник, ваша задача следить за порядком и направлять клиентов к нужной кассе.{Enter}
+     sleep %delay%
+           SendInput, {F6}Для повышения вы должны выполнить ряд поручений, зайдите ко мне в кабинет что-бы их получить{Enter}
      sleep %delay%
    if r > 8
    {
@@ -565,238 +481,6 @@ return
   SendInput, {F6}Я не могу снять выговор{enter}
   }
   return
-  :?:/op1:: 
-  SendMessage, 0x50,, 0x4190419,, A
-  SendInput, {F6}{Enter}
-    Sendinput, {F6}/me надел перчатки{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me надел маску{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me включил автоматический аппарат анестезии{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me взял скальпель{Enter}
-     sleep %delay%
-    Sendinput, {F6/me сделал небольшой надрез{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me положил скальпель{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me взял лапароскоп{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me провел манипуляцию по обнаружению червеобразного отростка{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me взял скальпель{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me сделал небольшой надрез{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me положил скальпель{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me взял необходимые инструменты{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me аккуратно удалил червеобразный отросток.{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me положил на стол все инструменты{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me обработал рану антисептиком.{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me наложил асептическую повязку.{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me выключил автоматический аппарат анестезии{Enter}
-     sleep %delay%    
-    Sendinput, {F6}/me снял маску{enter}
-     sleep %delay%
-    Sendinput, {F6}/me провел мероприятия по выведению человека из анестезии.{Enter}
-     sleep %delay%
-    Sendinput, {F6}/heal{space}
-
-  return
-  :?:/op2:: 
-  SendMessage, 0x50,, 0x4190419,, A
-  SendInput, {F6}{Enter}
-    Sendinput, {F6}/me осмотрел рану больного{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me наложил давящую повязку для остановки кровотечения{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me дал пациенту таблетку{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me обработал рану больного{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me вколол обезболивающее{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me поставил капельницу{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me включил аппарат наркоза{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me надел маску наркоза на раненного{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me взял скальпель{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me сделал разрез{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me взял щипцы{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me вытащил пулю{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me обрезал рваные и мертвые ткани около раны скальпелем{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me взял нитку и иголку{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me зашил рану{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me обработал рану зеленкой{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me перевязал рану бинтом{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me снял маску ингаляции{Enter}
-     sleep %delay%
-    Sendinput, {F6}/heal{space}
-    if ascreen = true 
-    {
-    Sendinput, {F6}/time{Enter}
-     sleep 200
-    Sendinput, {F8}
-    }
-  return
-  :?:/op3:: 
-  SendMessage, 0x50,, 0x4190419,, A
-  SendInput, {F6}{Enter}
-    Sendinput, {F6}/me осмотрел рану больного{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me наложил давящую повязку для остановки кровотечения{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me обработал рану{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me вколол обезболивающее{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me поставил капельницу{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me включил аппарат наркоза{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me взял нитку и иголку{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me зашил рану{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me обработал рану зеленкой{Enter}
-     sleep %delay%
-    Sendinput, {F6}/me перевязал рану бинтом{Enter}
-     sleep %delay%
-    Sendinput, {F6}/heal{space}
-    if ascreen = true 
-    {
-    Sendinput, {F6}/time{Enter}
-     sleep 200
-    Sendinput, {F8}
-    }
-  return
-  :?:-проверка:: 
-  SendMessage, 0x50,, 0x4190419,, A
-  SendInput, {F6}{Enter}
-    SendInput, {F6}Здравствуйте, уважаемые сотрудники{!}{Enter}
-      sleep %delay%
-    SendInput, {F6}Сейчас я проведу небольшую проверку...{Enter}
-     sleep %delay%
-    SendInput, {F6}..на наличие мед.карт{Enter}
-     sleep %delay%
-    SendInput, {F6}Прошу всех достать свои мед.карты и предоставить их сотрудникам %forg%{Enter}
-     sleep %delay%
-    SendInput, {F6}Спасибо за понимание.{Enter}
-     sleep %delay%
-  return
-  :?:-проверкамед:: 
-   SendMessage, 0x50,, 0x4190419,, A
-   SendInput, {F6}{Enter}
-   SendInput, {F6}/do Мед.карта на столе {Enter}
-   sleep %delay%
-   SendInput, {F6}/me взял мед.карту в руки {Enter}
-   sleep %delay%
-   SendInput, {F6}/do Мед.карта в руках{Enter}
-   sleep %delay%
-   SendInput, {F6}/me открыв мед.карту, проверил историю заболеваний {Enter}
-   sleep %delay%
-   SendInput, {F6}/do Мед.карта проверена {Enter}
-   sleep %delay%
-   SendInput, {F6}/todo Отлично*возвращая мед.карту {Enter}
-      SendInput, {F6}/time {Enter}
-      sleep 100
-   SendInput, {F8}
-  return
-  :?:-проверкаеды:: 
-   SendMessage, 0x50,, 0x4190419,, A
-   SendInput, {F6}{Enter}
-   SendInput, {F6}/do На кухне находится холодильник{Enter}
-   sleep %delay%
-   SendInput, {F6}/me лёгким движением руки, открыл холодильник {Enter}
-   sleep %delay%
-   SendInput, {F6}/do Холодильник открыт{Enter}
-   sleep %delay%
-   SendInput, {F6}/me открыв ящик с мясом, проверил этикетки {Enter}
-   sleep %delay%
-   SendInput, {F6}/try Еда просрочена {Enter}
-   sleep %delay%
-   SendInput, {F6}/todo Хм...*рассматривая этикетку {Enter}
-   sleep %delay%
-   SendInput, {F6}/time {Enter}
-      sleep 100
-   SendInput, {F8}
-  return
-  :?:-едапросрочена:: 
-   SendMessage, 0x50,, 0x4190419,, A
-   SendInput, {F6}{Enter}
-   SendInput, {F6}/me забрав еду в пакет, закрыл его{Enter}
-   sleep %delay%
-   SendInput, {F6}Так.. В холодильнике находится просроченное мясо{Enter}
-   sleep %delay%
-   SendInput, {F6}Мы приедем на следующей неделе, если ситуация не изменится..{Enter}
-   sleep %delay%
-   SendInput, {F6}..мы закроем закусочную, а вы должны будете выплатить штраф{!}{Enter}
-   sleep %delay%
-   SendInput, {F6}/time {Enter}
-      sleep 100
-   SendInput, {F8}
-  return
-  :?:/lec1:: 
-  SendMessage, 0x50,, 0x4190419,, A
-  SendInput, {F6}{Enter}
-    SendInput, {F6}/r Уважаемые коллеги, брать автомобили скорой помощи можно только с должности участковый врач и только на вызов.{Enter}
-      sleep %delay%
-    SendInput, {F6}/r На вызов можно ездить только с должности участковый врач.{Enter}
-     sleep %delay%
-    SendInput, {F6}/r Вертолет можно брать только с должности заведующий отделением и только на вызов.{Enter}
-     sleep %delay%
-    SendInput, {F6}/r Кто нарушит правила будет уволен и занесен в черный список.{Enter}
-     sleep %delay%
-    SendInput, {F6}/r Спасибо за внимание.{Enter}
-     sleep %delay%
-  return
-  :?:/lec2:: 
-  SendMessage, 0x50,, 0x4190419,, A
-  SendInput, {F6}{Enter}
-    SendInput, {F6}/r Уважаемые сотрудники, прощу минуточку Вашего внимания. {Enter}
-     Sleep %delay%
-    SendInput, {F6}/r Отдыхать можно только в перерыв и только в ординаторской.{Enter}
-     Sleep %delay%
-    SendInput, {F6}/r Кто будет отдыхать вне ординаторской, получит выговор вплоть до увольнения.{Enter}
-     Sleep %delay%
-    SendInput, {F6}/r Спасибо за внимание.{Enter}
-     Sleep %delay%
-    Sendinput, {F6}/time{Enter}
-     Sleep 150
-    sendinput, {F8}
-  Return
-  :?:/lec3:: 
-  SendMessage, 0x50,, 0x4190419,, A
-  SendInput, {F6}{Enter}
-    SendInput, {F6}/r Уважаемые интерны прошу минуточку внимания. {Enter}
-     Sleep %delay%
-    SendInput, {F6}/r Чтобы получить должность участкового врача надо: сдать медицинский устав, медицинские термины.{Enter}
-     Sleep %delay%
-    SendInput, {F6}/r Чтобы получить должность участкового врача жду Вас в ординаторской на сдачу.{Enter}
-     Sleep %delay%
-    SendInput, {F6}/r Спасибо за внимание.{Enter}
-     Sleep %delay%
-    Sendinput, {F6}/time{Enter}
-     Sleep 150
-    Sendinput, {F8}
-  Return
   :?:-треня:: 
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
