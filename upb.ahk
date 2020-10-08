@@ -1,4 +1,4 @@
-﻿updurl := "https://github.com/NikZakonov410/scripts/blob/master/MedBinder.exe?raw=true"
+﻿updurl := "https://raw.githubusercontent.com/NikZakonov410/scripts/master/BankBinder.ahk"
 SplashTextOn, , 60,Автообновление, Обновление. Ожидайте..`nНастраиваем систему обновления.
 RegRead, put2, HKEY_CURRENT_USER, SoftWare\SAMP, put2
 sleep, 5000
