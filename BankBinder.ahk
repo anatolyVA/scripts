@@ -75,13 +75,13 @@ if buildupd > % buildscr
     }
 }
 SplashTextoff
-IfnotExist, %A_ScriptDir%\MB ;Если такой капки нет, то...
+IfnotExist, %A_ScriptDir%\Bb ;Если такой капки нет, то...
 {
- FileCreateDir, %A_ScriptDir%\MB ;Он создает эту папку
+ FileCreateDir, %A_ScriptDir%\Bb ;Он создает эту папку
 }
-IfnotExist, %A_ScriptDir%\MB\med.ini ;Если такого файла нет, то...
+IfnotExist, %A_ScriptDir%\Bb\bank.ini ;Если такого файла нет, то...
 {
-URLDownloadToFile, https://raw.githubusercontent.com/NikZakonov410/scripts/master/med.ini, %A_ScriptDir%\MB\med.ini ;Он этот файл скачивает
+URLDownloadToFile, https://raw.githubusercontent.com/NikZakonov410/scripts/master/bank.ini, %A_ScriptDir%\Bb\bank.ini ;Он этот файл скачивает
 }
 IfnotExist, %A_ScriptDir%\help.txt ;Если такого файла нет, то...
 {
@@ -89,12 +89,12 @@ URLDownloadToFile, https://raw.githubusercontent.com/NikZakonov410/scripts/maste
 }
 
 
-IniRead, name, MB\med.ini, main, n
-IniRead, delay, MB\med.ini, main, d
+IniRead, name, Bb\bank.ini, main, n
+IniRead, delay, Bb\bank.ini, main, d
 
-IniRead, r, MB\med.ini, main, r
-IniRead, forg, MB\med.ini, main, forg
-IniRead, rankname, MB\med.ini, main, rankname
+IniRead, r, Bb\bank.ini, main, r
+IniRead, forg, Bb\bank.ini, main, forg
+IniRead, rankname, Bb\bank.ini, main, rankname
 if forg = СМП
 {
  if r = 1
@@ -175,7 +175,7 @@ Gui, Add, Button, x25 y49 w180 h30 gKeyO, Ввести название орг.
 Gui, Add, Button, x2 y229 w60 h30 gKeyOK, OK
 Gui, Add, Button, x167 y229 w60 h30 gKeyI, INFO
 ; Generated using SmartGUI Creator 4.0
-Gui, Show, x497 y241 h262 w230, MedBinder
+Gui, Show, x497 y241 h262 w230, BankBinder
 Return
 
 GuiClose:
@@ -183,20 +183,20 @@ ExitApp
 
 keyN:
 InputBox, ni, Ник Нейм, Введите свой ник.`nВаш нынешний ник - %name%
-IniWrite, %ni%, MB\med.ini, main, n
+IniWrite, %ni%, Bb\bank.ini, main, n
 return
 keyR:
 InputBox, fN, Ранк, Введите свой ранк(1-10).`nНа данный момент вы %rankname%[%r%]
-IniWrite, %fN%, MB\med.ini, main, r
+IniWrite, %fN%, Bb\bank.ini, main, r
 reload
 return
 keyS:
 InputBox, S, Задержка, Введите задержку(Пример: 1000) 1000 = 1 секунда.`nВаша задержка - %delay%
-IniWrite, %S%, MB\med.ini, main, d
+IniWrite, %S%, Bb\bank.ini, main, d
 return
 keyO:
 InputBox, Org, Организация, Введите название своей организации(СМП | ГВМУ | ГБ-Э).`nВаша нынешняя организация - %forg% 
-IniWrite, %Org%, MB\med.ini, main, forg
+IniWrite, %Org%, Bb\bank.ini, main, forg
 return
 keyOK:
 gui,Minimize
@@ -208,14 +208,14 @@ return
 
   :?:/p:: 
   SendMessage, 0x50,, 0x4190419,, A
-  IniRead, r, MB\med.ini, main, r
+  IniRead, r, Bb\bank.ini, main, r
   SendInput, {F6}{Enter}
   SendInput, {F6}Здравствуйте, меня зовут %name%, я %rankname% %forg% {Enter}
   sleep %delay%
   SendInput, {F6}Чем я могу вам помочь? {Enter}
   return
   :?:/h:: 
-  IniRead, r, MB\med.ini, main, r
+  IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
   if r > 1
@@ -245,7 +245,7 @@ return
   return
   
   :?:/utatu:: 
-  IniRead, r, MB\med.ini, main, r
+  IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
   if r > 5
@@ -289,7 +289,7 @@ return
    }
   return
   :?:/medc:: 
-  IniRead, r, MB\med.ini, main, r
+  IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
   if r > 2
@@ -334,7 +334,7 @@ return
    }
   return
   :?:/apt:: 
-  IniRead, r, MB\med.ini, main, r
+  IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
   if r > 5
@@ -365,7 +365,7 @@ return
    }
   return
   :?:/rec:: 
-  IniRead, r, MB\med.ini, main, r
+  IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
   if r > 3
@@ -408,7 +408,7 @@ return
    }
   return
    :?:/sob:: 
-   IniRead, r, MB\med.ini, main, r
+   IniRead, r, Bb\bank.ini, main, r
    SendMessage, 0x50,, 0x4190419,, A
    SendInput, {F6}{Enter}
    if r > 4
@@ -474,7 +474,7 @@ return
    SendInput, {F6}/todo Отлично*возвращая мед.карту {Enter}
    return
    :?:/inv:: 
-   IniRead, r, MB\med.ini, main, r
+   IniRead, r, Bb\bank.ini, main, r
    SendMessage, 0x50,, 0x4190419,, A
    SendInput, {F6}{Enter}
    SendInput, {F6}Поздравляю, Вы нам подходите{!} {Enter}
@@ -509,7 +509,7 @@ return
    return
   
   :?:/grank:: 
-  IniRead, r, MB\med.ini, main, r
+  IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
   if r > 8
@@ -528,7 +528,7 @@ return
   }
   return
   :?:/fw:: 
-  IniRead, r, MB\med.ini, main, r
+  IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
   if r > 6
@@ -547,7 +547,7 @@ return
   }
   return
   :?:/ufw:: 
-  IniRead, r, MB\med.ini, main, r
+  IniRead, r, Bb\bank.ini, main, r
   SendMessage, 0x50,, 0x4190419,, A
   SendInput, {F6}{Enter}
   if r > 8
